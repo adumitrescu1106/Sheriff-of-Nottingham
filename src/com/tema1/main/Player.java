@@ -2,27 +2,36 @@ package com.tema1.main;
 
 import java.util.ArrayList;
 import java.util.List;
+import com.tema1.helpers.Constants;
 
-public abstract class Player {
-    public ArrayList<Integer> bag;
-    public int coins = 80;
-    public List<Integer> CardsInHand;
-    public String declaration;
-    public String tactic;
+public  class Player {
+    private ArrayList<Integer> bag;
+    private ArrayList<Integer>
+    private Constants constanta = new Constants();
+    private int coins = constanta.START_BUDGET;
+    private List<Integer> CardsInHand;
+    private String declaration;
+    private String tactic;
+    private String job;
 
-    public Player(){}
+    public Player() {
 
-    public Player(List<Integer> cardsInHand, List<String> PlayerNames, int i) {
+    }
+
+    Player(List<Integer> cardsInHand, List<String> PlayerNames, int i) {
+
         CardsInHand = cardsInHand;
         this.tactic = PlayerNames.get(i);
 
     }
 
-    abstract void play_basic(Player player);
-    abstract void play_bribed(Player player);
-    abstract void play_greedy(Player player);
+    public final String getJob() {
+        return job;
+    }
 
-
+    public final String getDeclaration() {
+        return declaration;
+    }
 
     @Override
     public String toString() {

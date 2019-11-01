@@ -2,7 +2,7 @@ package com.tema1.goods;
 
 public abstract class Goods {
     private final int id;
-    private final GoodsType type;x
+    private final GoodsType type;
     private final int profit;
     private final int penalty;
 

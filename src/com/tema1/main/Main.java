@@ -1,11 +1,11 @@
 package com.tema1.main;
 
-import java.lang.constant.Constable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.tema1.goods.*;
+import com.tema1.goods.Goods;
+import com.tema1.goods.GoodsFactory;
 import com.tema1.helpers.Constants;
 
 public final class Main {
