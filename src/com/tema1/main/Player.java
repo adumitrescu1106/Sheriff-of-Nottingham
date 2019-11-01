@@ -4,43 +4,66 @@ import java.util.ArrayList;
 import java.util.List;
 import com.tema1.helpers.Constants;
 
-public  class Player {
+public class Player {
     private ArrayList<Integer> bag;
-    private ArrayList<Integer>
+    private ArrayList<Integer> booth;
     private Constants constanta = new Constants();
-    private int coins = constanta.START_BUDGET;
-    private List<Integer> CardsInHand;
+    private int coins;
+    private List<Integer> cardsInHand;
     private String declaration;
     private String tactic;
     private String job;
 
     public Player() {
+        coins = constanta.START_BUDGET;
 
     }
 
     Player(List<Integer> cardsInHand, List<String> PlayerNames, int i) {
-
-        CardsInHand = cardsInHand;
+        coins = constanta.START_BUDGET;
+        this.cardsInHand = cardsInHand;
         this.tactic = PlayerNames.get(i);
+        this.job = "merchant";
 
     }
 
-    public final String getJob() {
-        return job;
+    public final ArrayList<Integer> getBag() {
+        return bag;
+    }
+
+    public final ArrayList<Integer> getBooth() {
+        return booth;
+    }
+
+    public final int getCoins() {
+        return coins;
+    }
+
+    public final List<Integer> getCardsInHand() {
+        return cardsInHand;
     }
 
     public final String getDeclaration() {
         return declaration;
     }
 
-    @Override
-    public String toString() {
-        return "Player{" +
-                "bag=" + bag +
-                ", coins=" + coins +
-                ", CardsInHand=" + CardsInHand +
-                ", declaration='" + declaration + '\'' +
-                ", tactic='" + tactic + '\'' +
-                '}';
+    public final String getTactic() {
+        return tactic;
+    }
+
+    public final String getJob() {
+        return job;
+    }
+
+
+
+
+    public final String toString() {
+        return "Player{"
+               + "bag=" + bag
+               + ", coins=" + coins + ", CardsInHand=" + cardsInHand
+                + ", declaration='" + declaration + '\''
+                + ", tactic='" + tactic + '\''
+                + '}';
     }
 }
