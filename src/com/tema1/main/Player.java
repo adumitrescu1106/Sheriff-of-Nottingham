@@ -55,7 +55,9 @@ public class Player {
         return job;
     }
 
-
+    public final void setDeclaration(String string) {
+        this.declaration = string;
+    }
 
 
     public final String toString() {

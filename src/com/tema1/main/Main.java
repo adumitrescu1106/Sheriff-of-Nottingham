@@ -32,12 +32,14 @@ public final class Main {
 
         for (int i = 0; i < PlayerNames.size(); ++i) {
             copy = Cards.subList(i * constanta.CARDS_PICK, (i + 1) * constanta.CARDS_PICK);
-            jucatori.add(new Player(copy, PlayerNames, i));
+            jucatori.add(new Basic(copy, PlayerNames, i));
+           // jucatori.get(i)
             System.out.println(jucatori.get(i));
         }
         GoodsFactory obiecte = GoodsFactory.getInstance();
         Map<Integer, Goods> harta = obiecte.getAllGoods();
         Goods ciorba = obiecte.getGoodsById(2);
         System.out.println(ciorba.getPenalty());
+
     }
 }
