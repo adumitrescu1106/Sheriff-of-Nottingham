@@ -61,6 +61,9 @@ public class Player {
     public final void setDeclaration(int id) {
         this.declaration = id;
     }
+    public final void addCoins(int coinsToAdd) {
+        this.coins = this.coins + coinsToAdd;
+    }
 
     public void basicMerchant(Player player) {
 

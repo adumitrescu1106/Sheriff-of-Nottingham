@@ -50,16 +50,10 @@ public class Basic extends Player {
 
     public final void getBestItem(Player player, List<Integer> cardsInHand) {
         // pun in map-ul de frecvete id urile itemelor din mana si frecventele cu care apar
-        if (checkIfLegal(cardsInHand.get(0))) {
-            this.frequency.put(cardsInHand.get(0), 1);
-        }
-        for (int i = 0; i < cardsInHand.size() ; ++i) {
-            if (!cardsInHand.get(i).equals(cardsInHand.get(0)) && checkIfLegal(cardsInHand.get(i))) {
+        for (int i = 0; i < cardsInHand.size(); ++i) {
+            if (checkIfLegal(cardsInHand.get(i))) {
                 this.frequency.put(cardsInHand.get(i), 0);
             }
-        }
-        if (checkIfLegal(cardsInHand.get(0))) {
-            this.frequency.put(cardsInHand.get(0), 0);
         }
         for (int i = 0; i < cardsInHand.size(); ++i) {
             if (checkIfLegal(cardsInHand.get(i))) {
@@ -94,13 +88,14 @@ public class Basic extends Player {
                     maxIndex = entry.getKey();
                 }
             }
-
         }
         // pun cartile/cartea cele mai bune pt jucatorul basic
         for (int i = 0; i < maxValueInMap; ++i) {
             player.getBag().add(key);
         }
+        //stabilesc ce declara ca are in sac si ii dau profitul pe produsele din sac pt ca spune adevarul in cazul asta
         setDeclaration(key);
+        addCoins(maxValueInMap * products.getGoodsById(key).getProfit());
     }
 
     // urmatoarea metoda verifica daca in mana exista carti legale pe care basic le puate lua
