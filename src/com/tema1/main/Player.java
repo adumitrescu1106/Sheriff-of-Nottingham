@@ -10,13 +10,14 @@ public class Player {
     private Constants constanta = new Constants();
     private int coins;
     private List<Integer> cardsInHand;
-    private String declaration;
+    private int declaration;
     private String tactic;
     private String job;
 
     public Player() {
         coins = constanta.START_BUDGET;
-
+        bag = new ArrayList<>();
+        booth = new ArrayList<>();
     }
 
     Player(List<Integer> cardsInHand, List<String> PlayerNames, int i) {
@@ -24,6 +25,8 @@ public class Player {
         this.cardsInHand = cardsInHand;
         this.tactic = PlayerNames.get(i);
         this.job = "merchant";
+        bag = new ArrayList<>();
+        booth = new ArrayList<>();
 
     }
 
@@ -43,7 +46,7 @@ public class Player {
         return cardsInHand;
     }
 
-    public final String getDeclaration() {
+    public final int getDeclaration() {
         return declaration;
     }
 
@@ -55,13 +58,14 @@ public class Player {
         return job;
     }
 
-    public final void setDeclaration(String string) {
-        this.declaration = string;
+    public final void setDeclaration(int id) {
+        this.declaration = id;
     }
 
     public void basicMerchant(Player player) {
 
     }
+
 
 
     public final String toString() {

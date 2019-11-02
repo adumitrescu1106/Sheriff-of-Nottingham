@@ -28,4 +28,5 @@ public abstract class Goods {
     public final int getPenalty() {
         return penalty;
     }
+
 }
