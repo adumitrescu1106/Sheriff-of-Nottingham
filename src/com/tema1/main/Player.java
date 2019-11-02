@@ -59,6 +59,10 @@ public class Player {
         this.declaration = string;
     }
 
+    public void basicMerchant(Player player) {
+
+    }
+
 
     public final String toString() {
         return "Player{"
