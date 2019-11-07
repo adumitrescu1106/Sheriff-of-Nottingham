@@ -18,7 +18,18 @@ public final class Main {
         for (int i = 0; i < playerNumber; ++i) {
             copy = Cards.subList(i * constanta.CARDS_PICK, (i + 1) * constanta.CARDS_PICK);
             jucatori.add(new Basic(copy, PlayerNames, i));
-            jucatori.get(i).basicMerchant(jucatori.get(i));
+            //jucatori.get(i).basicMerchant(jucatori.get(i));
+
+        }
+        jucatori.get(0).setJob("sheriff");
+        jucatori.get(1).playBasic(jucatori, jucatori.get(1), Cards);
+        jucatori.get(0).playBasic(jucatori, jucatori.get(0), Cards);
+        jucatori.get(0).setJob("merchant");
+        jucatori.get(1).setJob("sheriff");
+        jucatori.get(0).playBasic(jucatori, jucatori.get(0), Cards);
+        jucatori.get(1).playBasic(jucatori, jucatori.get(1), Cards);
+
+        for (int i = 0; i < playerNumber; ++i) {
             System.out.println(jucatori.get(i));
         }
     }
@@ -41,8 +52,5 @@ public final class Main {
         subRound(PlayerNames, Cards, jucatori, noPlayers);
         GoodsFactory obiecte = GoodsFactory.getInstance();
         Map<Integer, Goods> harta = obiecte.getAllGoods();
-        Goods ciorba = obiecte.getGoodsById(2);
-        System.out.println(ciorba.getPenalty());
-
     }
 }

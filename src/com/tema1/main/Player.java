@@ -58,6 +58,10 @@ public class Player {
         return job;
     }
 
+    public final void setJob(String job) {
+        this.job = job;
+    }
+
     public final void setDeclaration(int id) {
         this.declaration = id;
     }
@@ -66,10 +70,14 @@ public class Player {
     }
 
     public final void subCoins(int coinsToSub) {
-        this.coins = this.coins + coinsToSub;
+        this.coins = this.coins - coinsToSub;
     }
 
     public void basicMerchant(Player player) {
+
+    }
+
+    public void playBasic(ArrayList<Player> jucatori, Player player, List<Integer> cards) {
 
     }
 

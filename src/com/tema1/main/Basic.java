@@ -29,11 +29,11 @@ public class Basic extends Player {
         constants = new Constants();
     }
 
-    public final void playBasic(ArrayList<Player> jucatori, Player player) {
+    public final void playBasic(ArrayList<Player> jucatori, Player player, List<Integer> cards) {
         if (player.getJob().equals("merchant")) {
             basicMerchant(player);
         } else {
-            basicSheriff(jucatori, player);
+            basicSheriff(jucatori, player, cards);
         }
     }
 
@@ -45,25 +45,32 @@ public class Basic extends Player {
         }
     }
 
-    public final void basicSheriff(ArrayList<Player> jucatori, Player sheriff) {
+    public final void basicSheriff(ArrayList<Player> jucatori, Player sheriff, List<Integer> cards) {
         // Daca sheriful are o suma mai mare sau egala cu 16 , atunci controleaza jucatorii
-        boolean inRegula = true;
+        boolean inRegula;
+
         if (sheriff.getCoins() >= constants.SARACIE) {
             for (int i = 0; i < jucatori.size(); ++i) {
+                inRegula = true;
                 // verific restul jucatorilor (mai putin sherifful)
                 if (jucatori.get(i).getJob().equals("merchant")) {
                    for (int j = 0; j < jucatori.get(i).getBag().size(); j++) {
-                       if (jucatori.get(i).getBag().get(j) != jucatori.get(i).getDeclaration()) {
+                       // daca sunt carti ilegale in posesia jucatorilor , seriful le confisca si aplica pedeapsa
+                       if (products.getGoodsById(jucatori.get(i).getBag().get(j)).getType().equals(GoodsType.Illegal)) {
+                           jucatori.get(i).subCoins(products.getGoodsById(jucatori.get(i).getBag().get(j)).getPenalty());
+                           sheriff.addCoins(products.getGoodsById(jucatori.get(i).getBag().get(j)).getPenalty());
+                           confiscate(jucatori.get(i).getBag(), cards, j);
+                       } else if (jucatori.get(i).getBag().get(j) != jucatori.get(i).getDeclaration()) {
                            inRegula = false;
-                           //sherifful castiga banii pt ca a prins raufacatorul, iar pietarul pierde banii
+                           //sherifful castiga banii pt ca a prins obiecte nedeclarate, iar pietarul pierde banii
                            jucatori.get(i).subCoins(products.getGoodsById(jucatori.get(i).getBag().get(j)).getPenalty());
                            sheriff.addCoins(products.getGoodsById(jucatori.get(i).getBag().get(j)).getPenalty());
                        }
                    }
                    // daca comerciantul este in refula , atunci sherifful pierde banii
                    if (inRegula) {
-                        sheriff.subCoins(products.getGoodsById(jucatori.get(i).getDeclaration()).getPenalty()
-                                *  jucatori.get(i).getBag().size());
+                        sheriff.subCoins(products.getGoodsById(jucatori.get(i).getDeclaration()).getPenalty() * jucatori.get(i).getBag().size());
+                        jucatori.get(i).addCoins(products.getGoodsById(jucatori.get(i).getDeclaration()).getPenalty() * jucatori.get(i).getBag().size());
                    }
                 }
             }
@@ -138,6 +145,7 @@ public class Basic extends Player {
         return false;
     }
 
+    // adauga cartea ilegala cu profitul cel mai mare in sac si o declara ca fiind mere
     public final void getCardMaxProfit(List<Integer> cardsInHand) {
         int max = cardsInHand.get(0);
         Goods aux = products.getGoodsById(max);
@@ -148,7 +156,17 @@ public class Basic extends Player {
         }
         this.getBag().add(max);
         setDeclaration(0);
-        // adauga cartea ilegala cu profitul cel mai mare in sac si o declara ca fiind mere
+    }
+
+    //metoda urmatoare reprezinta confiscarea cartii cu indexul j
+    public final void confiscate(ArrayList<Integer> bag, List<Integer> cards, int index) {
+        cards.add(bag.get(index));
+        bag.remove(index);
+    }
+
+    //urmatoarea metoda da bonusurile aferente jucatorilor
+    public final void kingQueen() {
+
     }
 
 }
