@@ -9,6 +9,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.ArrayList;
 
 public class Basic extends Player {
     private Constants constants;
@@ -28,11 +29,11 @@ public class Basic extends Player {
         constants = new Constants();
     }
 
-    public final void playBasic(Player player) {
+    public final void playBasic(ArrayList<Player> jucatori, Player player) {
         if (player.getJob().equals("merchant")) {
             basicMerchant(player);
         } else {
-            basicSheriff(player);
+            basicSheriff(jucatori, player);
         }
     }
 
@@ -44,8 +45,29 @@ public class Basic extends Player {
         }
     }
 
-    public void basicSheriff(Player player) {
-
+    public final void basicSheriff(ArrayList<Player> jucatori, Player sheriff) {
+        // Daca sheriful are o suma mai mare sau egala cu 16 , atunci controleaza jucatorii
+        boolean inRegula = true;
+        if (sheriff.getCoins() >= constants.SARACIE) {
+            for (int i = 0; i < jucatori.size(); ++i) {
+                // verific restul jucatorilor (mai putin sherifful)
+                if (jucatori.get(i).getJob().equals("merchant")) {
+                   for (int j = 0; j < jucatori.get(i).getBag().size(); j++) {
+                       if (jucatori.get(i).getBag().get(j) != jucatori.get(i).getDeclaration()) {
+                           inRegula = false;
+                           //sherifful castiga banii pt ca a prins raufacatorul, iar pietarul pierde banii
+                           jucatori.get(i).subCoins(products.getGoodsById(jucatori.get(i).getBag().get(j)).getPenalty());
+                           sheriff.addCoins(products.getGoodsById(jucatori.get(i).getBag().get(j)).getPenalty());
+                       }
+                   }
+                   // daca comerciantul este in refula , atunci sherifful pierde banii
+                   if (inRegula) {
+                        sheriff.subCoins(products.getGoodsById(jucatori.get(i).getDeclaration()).getPenalty()
+                                *  jucatori.get(i).getBag().size());
+                   }
+                }
+            }
+        }
     }
 
     public final void getBestItem(Player player, List<Integer> cardsInHand) {

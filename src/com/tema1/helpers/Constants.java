@@ -5,4 +5,5 @@ public final class Constants {
     public static final int CARDS_PICK = 10;
     public static final int START_BUDGET = 80;
     public static final int LEGAL_BOUND = 9;
+    public static final int SARACIE = 16;
 }

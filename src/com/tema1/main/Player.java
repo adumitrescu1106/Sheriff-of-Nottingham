@@ -65,6 +65,10 @@ public class Player {
         this.coins = this.coins + coinsToAdd;
     }
 
+    public final void subCoins(int coinsToSub) {
+        this.coins = this.coins + coinsToSub;
+    }
+
     public void basicMerchant(Player player) {
 
     }
