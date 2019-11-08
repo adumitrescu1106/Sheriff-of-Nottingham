@@ -20,10 +20,10 @@ public class Player {
         booth = new ArrayList<>();
     }
 
-    Player(List<Integer> cardsInHand, List<String> PlayerNames, int i) {
+    Player(List<String> playerNames, int i) {
         coins = constanta.START_BUDGET;
-        this.cardsInHand = cardsInHand;
-        this.tactic = PlayerNames.get(i);
+        cardsInHand = new ArrayList<Integer>();
+        this.tactic = playerNames.get(i);
         this.job = "merchant";
         bag = new ArrayList<>();
         booth = new ArrayList<>();
@@ -38,12 +38,20 @@ public class Player {
         return booth;
     }
 
+    public final void setBooth(ArrayList<Integer> booth) {
+        this.booth = booth;
+    }
+
     public final int getCoins() {
         return coins;
     }
 
     public final List<Integer> getCardsInHand() {
         return cardsInHand;
+    }
+
+    public final void setCardsInHand(List<Integer> cards, int index) {
+        this.cardsInHand = cards.subList(index * constanta.CARDS_PICK, (index + 1) * constanta.CARDS_PICK);
     }
 
     public final int getDeclaration() {
@@ -81,14 +89,14 @@ public class Player {
 
     }
 
-
-
     public final String toString() {
-        return "Player{"
-               + "bag=" + bag
-               + ", coins=" + coins + ", CardsInHand=" + cardsInHand
-                + ", declaration='" + declaration + '\''
-                + ", tactic='" + tactic + '\''
-                + '}';
+        return "Player{" +
+                "bag=" + bag +
+                ", booth=" + booth +
+                ", coins=" + coins +
+                ", cardsInHand=" + cardsInHand +
+                ", declaration=" + declaration +
+                ", tactic='" + tactic + '\'' +
+                '}';
     }
 }

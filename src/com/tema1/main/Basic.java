@@ -22,8 +22,8 @@ public class Basic extends Player {
         constants = new Constants();
     }
 
-    public Basic(List<Integer> cardsInHand, List<String> PlayerNames, int i) {
-        super(cardsInHand, PlayerNames, i);
+    public Basic(List<String> playerNames, int i) {
+        super(playerNames, i);
         this.products = GoodsFactory.getInstance();
         this.frequency = new HashMap<Integer, Integer>();
         constants = new Constants();
@@ -48,7 +48,6 @@ public class Basic extends Player {
     public final void basicSheriff(ArrayList<Player> jucatori, Player sheriff, List<Integer> cards) {
         // Daca sheriful are o suma mai mare sau egala cu 16 , atunci controleaza jucatorii
         boolean inRegula;
-
         if (sheriff.getCoins() >= constants.SARACIE) {
             for (int i = 0; i < jucatori.size(); ++i) {
                 inRegula = true;
@@ -71,6 +70,9 @@ public class Basic extends Player {
                    if (inRegula) {
                         sheriff.subCoins(products.getGoodsById(jucatori.get(i).getDeclaration()).getPenalty() * jucatori.get(i).getBag().size());
                         jucatori.get(i).addCoins(products.getGoodsById(jucatori.get(i).getDeclaration()).getPenalty() * jucatori.get(i).getBag().size());
+                        for (int k = 0; k < jucatori.get(i).getBag().size(); k++) {
+                            jucatori.get(i).getBooth().add(jucatori.get(i).getBag().get(i));
+                        }
                    }
                 }
             }
@@ -162,11 +164,6 @@ public class Basic extends Player {
     public final void confiscate(ArrayList<Integer> bag, List<Integer> cards, int index) {
         cards.add(bag.get(index));
         bag.remove(index);
-    }
-
-    //urmatoarea metoda da bonusurile aferente jucatorilor
-    public final void kingQueen() {
-
     }
 
 }
