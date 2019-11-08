@@ -21,20 +21,29 @@ public final class Main {
             jucatori.add(new Basic(playerNames, i));
         }
         //desfasurarea jocului
+        int currentSubRound;
+        int sheriffIndex;
         for (int i = 0; i < rounds; ++i) {
-            for (int j = 0; j < playerNumber; ++j) {
-                jucatori.get(j).setCardsInHand(cards, j);
+            //subrundele
+            sheriffIndex = 0;
+            for (int k = 0; k < playerNumber; k++) {
+                //impartirea cartilor
+                for (int j = 0; j < playerNumber; ++j) {
+                    //setez sherifful subrundei
+                    if (j == sheriffIndex) {
+                        jucatori.get(j).setJob("sheriff");
+                    } else {
+                        //jucatorul j primeste cartile si isi face sacul
+                        jucatori.get(j).setCardsInHand(cards, j);
+                        jucatori.get(j).playBasic(jucatori, jucatori.get(j), cards);
+                    }
+                }
+                // politistul subrundei isi face verificarea
+                jucatori.get(sheriffIndex).playBasic(jucatori, jucatori.get(sheriffIndex), cards);
+                jucatori.get(sheriffIndex).setJob("merchant");
+                sheriffIndex++;
             }
         }
-        jucatori.get(0).setJob("sheriff");
-        jucatori.get(1).playBasic(jucatori, jucatori.get(1), cards);
-        jucatori.get(0).playBasic(jucatori, jucatori.get(0), cards);
-        jucatori.get(0).setJob("merchant");
-        jucatori.get(1).setJob("sheriff");
-        jucatori.get(0).playBasic(jucatori, jucatori.get(0), cards);
-        jucatori.get(1).playBasic(jucatori, jucatori.get(1), cards);
-
-
     }
 
     public static void main(final String[] args) {
@@ -93,7 +102,8 @@ public final class Main {
             jucatori.get(entry.getValue().get(0)).addCoins(legalGoods.getKingBonus());
         }
 
-        for (int i = 0; i < noPlayers; ++i) {
+        //printeaza jucatorii
+        for (int i = noPlayers - 1; 0 <= i; i--) {
             System.out.println(jucatori.get(i));
         }
     }
