@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import com.tema1.helpers.Constants;
 
-public class Player {
+public class Player implements Comparable {
+    private int playerindex;
     private ArrayList<Integer> bag;
     private ArrayList<Integer> booth;
     private Constants constanta = new Constants();
@@ -14,6 +15,7 @@ public class Player {
     private String tactic;
     private String job;
 
+
     public Player() {
         coins = constanta.START_BUDGET;
         bag = new ArrayList<>();
@@ -21,6 +23,7 @@ public class Player {
     }
 
     Player(List<String> playerNames, int i) {
+        playerindex = i;
         coins = constanta.START_BUDGET;
         cardsInHand = new ArrayList<Integer>();
         this.tactic = playerNames.get(i);
@@ -28,6 +31,10 @@ public class Player {
         bag = new ArrayList<>();
         booth = new ArrayList<>();
 
+    }
+
+    public final int getPlayerindex() {
+        return playerindex;
     }
 
     public final ArrayList<Integer> getBag() {
@@ -81,16 +88,12 @@ public class Player {
         this.coins = this.coins - coinsToSub;
     }
 
-    public void basicMerchant(Player player) {
-
-    }
-
-    public void playBasic(ArrayList<Player> jucatori, Player player, List<Integer> cards) {
+    public void playBasic(ArrayList<Player> jucatori, Player player, List<Integer> cards, int round) {
 
     }
 
     public final String toString() {
-        return "Player{" +
+        return playerindex + "Player{" +
                 "bag=" + bag +
                 ", booth=" + booth +
                 ", coins=" + coins +
@@ -98,5 +101,22 @@ public class Player {
                 ", declaration=" + declaration +
                 ", tactic='" + tactic + '\'' +
                 '}';
+    }
+
+//    public final int compareTo(Player player) {
+//        int compareCoins = ((Player) player).getCoins();
+//        return compareCoins - this.coins;
+//    }
+
+    public final int compareTo(Object o) {
+        int compareCoins = ((Player) o).getCoins();
+        return compareCoins - this.coins;
+    }
+
+    public boolean checkIfIlegalHand(List<Integer> cardsInHand) {
+        return true;
+    }
+
+    public void getMaxIllegal(List<Integer> cardsInHand) {
     }
 }

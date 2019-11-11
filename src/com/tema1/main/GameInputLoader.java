@@ -5,6 +5,7 @@ import java.util.List;
 
 import fileio.FileSystem;
 
+
 public final class GameInputLoader {
     private final String mInputPath;
     private final String mOutputPath;

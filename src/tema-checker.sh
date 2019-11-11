@@ -350,4 +350,4 @@ checkCheckstyle
 
 calculateScore
 
-cleanHomework
+#cleanHomework

@@ -1,4 +1,0 @@
-Error occurred during initialization of VM
-java.lang.InternalError: Bad level: 2
-	at jdk.internal.misc.VM.initLevel(java.base@13.0.1/VM.java:58)
-	at java.lang.System.initPhase2(java.base@13.0.1/System.java:2079)
