@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="469746b5-41a1-4072-a502-e1b10d77b891" name="Default Changelist" comment="first">
+      <change beforePath="$PROJECT_DIR$/out/production/Temapoo1/com/tema1/main/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Temapoo1/com/tema1/main/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tema1/main/Basic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tema1/main/Basic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tema1/main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tema1/main/Main.java" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FavoritesManager">
+    <favorites_list name="Temapoo1" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IgnoredFileRootStore">
+    <option name="generatedRoots">
+      <set>
+        <option value="$PROJECT_DIR$/.idea" />
+      </set>
+    </option>
+  </component>
+  <component name="ProjectId" id="1SeDhjwil6sEQeA3WyPX3s4gTuj" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Downloads/poo_checks.xml" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="reference.idesettings.debugger.capture" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration name="Game" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="com.tema1.main.Main" />
+      <module name="Temapoo1" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="469746b5-41a1-4072-a502-e1b10d77b891" name="Default Changelist" comment="" />
+      <created>1571915288869</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1571915288869</updated>
+      <workItem from="1571915292761" duration="322000" />
+      <workItem from="1572121930275" duration="94000" />
+      <workItem from="1572122058397" duration="4273000" />
+      <workItem from="1572182864673" duration="17431000" />
+      <workItem from="1572509865399" duration="83743000" />
+    </task>
+    <task id="LOCAL-00001">
+      <created>1572512816078</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1572512816078</updated>
+    </task>
+    <task id="LOCAL-00002" summary="first">
+      <created>1572513207799</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1572513207799</updated>
+    </task>
+    <task id="LOCAL-00003" summary="first">
+      <created>1572594382567</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1572594382567</updated>
+    </task>
+    <task id="LOCAL-00004" summary="first">
+      <created>1572597994354</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1572597994354</updated>
+    </task>
+    <task id="LOCAL-00005" summary="first">
+      <created>1572601994657</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1572601994657</updated>
+    </task>
+    <task id="LOCAL-00006" summary="first">
+      <created>1572697414939</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1572697414939</updated>
+    </task>
+    <task id="LOCAL-00007" summary="first">
+      <created>1572699168630</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1572699168631</updated>
+    </task>
+    <task id="LOCAL-00008" summary="first">
+      <created>1572721026486</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1572721026486</updated>
+    </task>
+    <task id="LOCAL-00009" summary="first">
+      <created>1572722732760</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1572722732760</updated>
+    </task>
+    <task id="LOCAL-00010" summary="first">
+      <created>1573152902212</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1573152902213</updated>
+    </task>
+    <task id="LOCAL-00011" summary="first">
+      <created>1573162438468</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1573162438468</updated>
+    </task>
+    <task id="LOCAL-00012" summary="first">
+      <created>1573242592281</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1573242592281</updated>
+    </task>
+    <task id="LOCAL-00013" summary="first">
+      <created>1573247368870</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1573247368870</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="first" />
+    <option name="LAST_COMMIT_MESSAGE" value="first" />
+  </component>
+</project>
