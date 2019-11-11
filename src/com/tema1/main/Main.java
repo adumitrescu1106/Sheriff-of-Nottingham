@@ -71,8 +71,8 @@ public final class Main {
 //        String output = "/home/andrei/Desktop/TemePOO/src/checker/tests/out/2round3players-mixed-test7.out";
 //        String input = "/home/andrei/Desktop/TemePOO/src/checker/tests/in/2round2players-legal-only-test9.in";
 //        String output = "/home/andrei/Desktop/TemePOO/src/checker/tests/out/2round2players-legal-only-test9.out";
-//        String input = "/home/andrei/Desktop/TemePOO/src/checker/tests/in/1round3players-legal-only-test7.in";
-//        String output = "/home/andrei/Desktop/TemePOO/src/checker/tests/out/1round3players-legal-only-test7.out";
+//        String input = "/home/andrei/Desktop/TemePOO/src/checker/tests/in/1round3players-mixed-test1.in";
+//        String output = "/home/andrei/Desktop/TemePOO/src/checker/tests/out/1round3players-mixed-test1.out";
 
 ////
 //        GameInputLoader gameInputLoader = new GameInputLoader(input, output);

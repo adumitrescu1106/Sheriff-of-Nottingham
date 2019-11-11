@@ -10,10 +10,13 @@ public class Player implements Comparable {
     private ArrayList<Integer> booth;
     private Constants constanta = new Constants();
     private int coins;
+    private int bribe;
     private List<Integer> cardsInHand;
     private int declaration;
     private String tactic;
     private String job;
+    private int actualCoins;
+
 
 
     public Player() {
@@ -30,7 +33,8 @@ public class Player implements Comparable {
         this.job = "merchant";
         bag = new ArrayList<>();
         booth = new ArrayList<>();
-
+        bribe = 0;
+        actualCoins = coins;
     }
 
     public final int getPlayerindex() {
@@ -53,6 +57,18 @@ public class Player implements Comparable {
         return coins;
     }
 
+    public final int getBribe() {
+        return bribe;
+    }
+
+    public final int getActualCoins() {
+        return actualCoins;
+    }
+
+    public final void setActualCoins(int actualCoins) {
+        this.actualCoins = actualCoins;
+    }
+
     public final List<Integer> getCardsInHand() {
         return cardsInHand;
     }
@@ -71,6 +87,10 @@ public class Player implements Comparable {
 
     public final String getJob() {
         return job;
+    }
+
+    public final void setBribe(int bribe) {
+        this.bribe = bribe;
     }
 
     public final void setJob(String job) {
@@ -103,20 +123,16 @@ public class Player implements Comparable {
                 '}';
     }
 
-//    public final int compareTo(Player player) {
-//        int compareCoins = ((Player) player).getCoins();
-//        return compareCoins - this.coins;
-//    }
 
     public final int compareTo(Object o) {
         int compareCoins = ((Player) o).getCoins();
         return compareCoins - this.coins;
     }
 
-    public boolean checkIfIlegalHand(List<Integer> cardsInHand) {
-        return true;
-    }
-
-    public void getMaxIllegal(List<Integer> cardsInHand) {
-    }
+//    public boolean checkIfIlegalHand(List<Integer> cardsInHand) {
+//        return true;
+//    }
+//
+//    public void getMaxIllegal(List<Integer> cardsInHand) {
+//    }
 }

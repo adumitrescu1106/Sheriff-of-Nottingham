@@ -15,6 +15,7 @@ public class Basic extends Player {
     private GoodsFactory products;
     private Map<Integer, Integer> frequency;
     private ArrayList<Integer> usedCards;
+    private ArrayList<Integer> merchantsToCheck;
 
 
     public Basic() {
@@ -33,21 +34,24 @@ public class Basic extends Player {
         for (int j = 0; j < constants.CARDS_PICK; ++j) {
             usedCards.add(0);
         }
+        merchantsToCheck = new ArrayList<Integer>();
     }
 
-    public final void playBasic(ArrayList<Player> jucatori, Player player, List<Integer> cards, int round) {
-        frequency.clear();
-        usedCards.clear();
-        for (int j = 0; j < constants.CARDS_PICK; ++j) {
-            usedCards.add(0);
-        }
-        if (player.getTactic().equals("basic") || player.getTactic().equals("bribed")) {
+    public final void playBasic(ArrayList<Player> jucatori, Player player,
+                                List<Integer> cards, int round) {
+        clearEachPlay();
+        player.setActualCoins(player.getCoins());
+        //basic player
+        if (player.getTactic().equals("basic")) {
+
             if (player.getJob().equals("merchant")) {
                 basicMerchant(player);
             } else {
+                setCheckBasic(jucatori.size());
                 basicSheriff(jucatori, player, cards);
             }
         }
+        //greedy player
         if (player.getTactic().equals("greedy")) {
             if (player.getJob().equals("merchant")) {
                basicMerchant(player);
@@ -56,44 +60,70 @@ public class Basic extends Player {
                     //System.out.println("intra par");
                 }
             } else {
+                setCheckBasic(jucatori.size());
+                basicSheriff(jucatori, player, cards);
+            }
+        }
+        //briber player
+        if (player.getTactic().equals("bribed")) {
+            if (player.getJob().equals("merchant")) {
+                //pietar bribed
+                //daca nu are nicio carte ilegala in mana sau daca nu are bani de bribe, joaca basic
+                if (player.getActualCoins() < constants.MIN_BRIBE || !checkIfIlegalHand(player.getCardsInHand())) {
+                    basicMerchant(player);
+                } else {
+                    bribedMerchant(player);
+                }
+            } else {
+                //sheriff bribed
+                setCheckBribed(jucatori, player.getPlayerindex());
                 basicSheriff(jucatori, player, cards);
             }
         }
     }
 
-
+    //metoda pentru merchant ul cu stilul de joc basic
     public final void basicMerchant(Player player) {
         if (!(checkIfLegalHand(player.getCardsInHand()))) {
             // adauga cartea ilegala cu profitul cel mai mare in sac si o declara ca fiind mere
             getCardMaxProfit(player, player.getCardsInHand());
             setDeclaration(0);
-            //System.out.println("intra aici");
         } else {
           getBestItem(player, player.getCardsInHand());
         }
     }
 
-    public final void basicSheriff(ArrayList<Player> jucatori, Player sheriff, List<Integer> cards) {
+    //metoda pentru sheriff ul cu stilul de joc basic
+    public final void basicSheriff(ArrayList<Player> jucatori,
+                                   Player sheriff, List<Integer> merchantsToCheck) {
         // Daca sheriful are o suma mai mare sau egala cu 16 , atunci controleaza jucatorii
         boolean inRegula;
         if (sheriff.getCoins() >= constants.SARACIE) {
             for (int i = 0; i < jucatori.size(); ++i) {
                 inRegula = true;
                 // verific restul jucatorilor (mai putin sherifful)
-                if (jucatori.get(i).getJob().equals("merchant")) {
+                if (jucatori.get(i).getJob().equals("merchant") && indexToCheck(i)) {
                    for (int j = 0; j < jucatori.get(i).getBag().size(); j++) {
-                       // daca sunt carti ilegale in posesia jucatorilor , seriful le confisca si aplica pedeapsa
-                       if (products.getGoodsById(jucatori.get(i).getBag().get(j)).getType().equals(GoodsType.Illegal)) {
+                       // daca sunt carti ilegale in posesia jucatorilor
+                       // seriful le confisca si aplica pedeapsa
+                       if (products.getGoodsById(jucatori.get(i).getBag().get(j)).getType().
+                               equals(GoodsType.Illegal)) {
                            inRegula = false;
-                       } else if (jucatori.get(i).getBag().get(j) != jucatori.get(i).getDeclaration()) {
+                       } else if (jucatori.get(i).getBag().get(j)
+                               != jucatori.get(i).getDeclaration()) {
                            inRegula = false;
-                           //sherifful castiga banii pt ca a prins obiecte nedeclarate, iar pietarul pierde banii
+                           //sherifful castiga banii pt ca a prins obiecte nedeclarate,
+                           // iar pietarul pierde banii
                        }
                    }
                    // daca comerciantul este in regula , atunci sherifful pierde banii
                    if (inRegula) {
-                        sheriff.subCoins(products.getGoodsById(jucatori.get(i).getDeclaration()).getPenalty() * jucatori.get(i).getBag().size());
-                        jucatori.get(i).addCoins(products.getGoodsById(jucatori.get(i).getDeclaration()).getPenalty() * jucatori.get(i).getBag().size());
+                        sheriff.subCoins(products.getGoodsById(
+                                jucatori.get(i).getDeclaration()).getPenalty()
+                                * jucatori.get(i).getBag().size());
+                        jucatori.get(i).addCoins(products.getGoodsById(
+                                jucatori.get(i).getDeclaration()).getPenalty()
+                                * jucatori.get(i).getBag().size());
 //                        System.out.println(jucatori.get(i).getCoins());
 //                        System.out.println("sheriff " + sheriff.getCoins());
                         for (int k = 0; k < jucatori.get(i).getBag().size(); k++) {
@@ -101,18 +131,30 @@ public class Basic extends Player {
                         }
                    } else {
                        for (int k = 0; k < jucatori.get(i).getBag().size(); k++) {
-                           if (jucatori.get(i).getBag().get(k) == jucatori.get(i).getDeclaration()) {
+                           if (jucatori.get(i).getBag().get(k)
+                                   == jucatori.get(i).getDeclaration()) {
                                jucatori.get(i).getBooth().add(jucatori.get(i).getBag().get(k));
-                               //jucatori.get(i).addCoins(products.getGoodsById(jucatori.get(i).getBag().get(k)).getProfit());
                            } else {
-                               jucatori.get(i).subCoins(products.getGoodsById(jucatori.get(i).getBag().get(k)).getPenalty());
-                               sheriff.addCoins(products.getGoodsById(jucatori.get(i).getBag().get(k)).getPenalty());
+                               jucatori.get(i).subCoins(products.getGoodsById(
+                                       jucatori.get(i).getBag().get(k)).getPenalty());
+                               sheriff.addCoins(products.getGoodsById(
+                                       jucatori.get(i).getBag().get(k)).getPenalty());
                                //confiscare
                            }
                        }
                    }
                 }
             }
+        }
+    }
+
+    // urmatoarea metoda curata structurile de date care se refolosesc in fiecare runda
+    public final void clearEachPlay() {
+        frequency.clear();
+        usedCards.clear();
+        merchantsToCheck.clear();
+        for (int j = 0; j < constants.CARDS_PICK; ++j) {
+            usedCards.add(0);
         }
     }
 
@@ -151,12 +193,15 @@ public class Basic extends Player {
             int maxIndex = 0;
             for (Map.Entry<Integer, Integer> entry : this.frequency.entrySet()) {
                 //pastrez indexul itemului cu profitul cel mai mare
-                if (entry.getValue() == maxValueInMap && products.getGoodsById(entry.getKey()).getProfit() > maxProfit) {
+                if (entry.getValue() == maxValueInMap
+                        && products.getGoodsById(entry.getKey()).getProfit() > maxProfit) {
                     maxProfit = products.getGoodsById(entry.getKey()).getProfit();
                     maxIndex = entry.getKey();
                     key = entry.getKey();
-                    //daca cele 2 carti au aceeasi frecventa(maxima) si acelasi profit(maxim) o alege pe cea cu indexul maxim
-                } else if (entry.getValue() == maxValueInMap && products.getGoodsById(entry.getKey()).getProfit() == maxProfit
+                    //daca cele 2 carti au aceeasi frecventa(maxima) si a
+                    // celasi profit(maxim) o alege pe cea cu indexul maxim
+                } else if (entry.getValue() == maxValueInMap
+                        && products.getGoodsById(entry.getKey()).getProfit() == maxProfit
                         && entry.getKey() > maxIndex) {
                     maxIndex = entry.getKey();
                     key = entry.getKey();
@@ -174,7 +219,8 @@ public class Basic extends Player {
                 usedCards.set(key, 1);
             }
         }
-        //stabilesc ce declara ca are in sac si ii dau profitul pe produsele din sac pt ca spune adevarul in cazul asta
+        //stabilesc ce declara ca are in sac si ii dau profitul pe
+        // produsele din sac pt ca spune adevarul in cazul asta
         setDeclaration(key);
         //addCoins(maxValueInMap * products.getGoodsById(key).getProfit());
     }
@@ -200,7 +246,8 @@ public class Basic extends Player {
     // urmatoarea metoda verifica daca in mana exista carti ilegale
     public final boolean checkIfIlegalHand(List<Integer> cardsInHand) {
         for (int i = 0; i < cardsInHand.size(); ++i) {
-            if (products.getGoodsById(cardsInHand.get(i)).getType() == GoodsType.Illegal && usedCards.get(i) == 0) {
+            if (products.getGoodsById(cardsInHand.get(i)).getType()
+                    == GoodsType.Illegal && usedCards.get(i) == 0) {
                 return true;
             }
         }
@@ -213,7 +260,8 @@ public class Basic extends Player {
         int max = 0;
         int index = 0;
         for (int i = 1; i < cardsInHand.size(); ++i) {
-            if (products.getGoodsById(cardsInHand.get(i)).getProfit() > products.getGoodsById(max).getProfit()
+            if (products.getGoodsById(cardsInHand.get(i)).getProfit()
+                    > products.getGoodsById(max).getProfit()
             && usedCards.get(i) == 0) {
                 max = cardsInHand.get(i);
                 index = 1;
@@ -229,14 +277,16 @@ public class Basic extends Player {
         int max = -1;
         int index = 0;
         for (int i = 0; i < cardsInHand.size(); ++i) {
-            if (products.getGoodsById(cardsInHand.get(i)).getType().equals(GoodsType.Illegal) && usedCards.get(i) == 0) {
+            if (products.getGoodsById(cardsInHand.get(i)).getType().equals(GoodsType.Illegal)
+                    && usedCards.get(i) == 0) {
                 max = cardsInHand.get(i);
                 break;
             }
         }
         for (int i = 0; i < cardsInHand.size(); ++i) {
-            if (products.getGoodsById(cardsInHand.get(i)).getType().equals(GoodsType.Illegal) &&
-                    products.getGoodsById(cardsInHand.get(i)).getProfit() > products.getGoodsById(max).getProfit()
+            if (products.getGoodsById(cardsInHand.get(i)).getType().equals(GoodsType.Illegal)
+                    && products.getGoodsById(cardsInHand.get(i)).getProfit()
+                            > products.getGoodsById(max).getProfit()
             && usedCards.get(i) == 0) {
                 max = cardsInHand.get(i);
                 index = i;
@@ -253,4 +303,47 @@ public class Basic extends Player {
         bag.remove(index);
     }
 
+    //Bribed
+    public final void bribedMerchant(Player player) {
+       // checkIfIlegalHand()
+    }
+
+    //urmatoarea metoda verifica daca jucatorul cu indexul transmis trebuie verificat
+    public final boolean indexToCheck(int indexPlayer) {
+        for (int i = 0; i < merchantsToCheck.size(); ++i) {
+            if (merchantsToCheck.get(i) == indexPlayer) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    //seteaza comerciantii care trebuie verificati in cazul sheriffului basic
+    public final void setCheckBasic(int noPlayers) {
+        for (int i = 0; i < noPlayers; ++i) {
+            merchantsToCheck.add(i);
+        }
+    }
+
+    //seteaza comerciantii care trebuie verificati in cazul sheriffului bribed
+    public final void setCheckBribed(List<Player> jucatori, int sheriffIndex) {
+        if (jucatori.size() > 2) {
+            if (sheriffIndex == (jucatori.size() - 1)) {
+                merchantsToCheck.add(0);
+                merchantsToCheck.add(sheriffIndex - 1);
+            } else if (sheriffIndex == 0) {
+                merchantsToCheck.add(jucatori.size() - 1);
+                merchantsToCheck.add(1);
+            } else {
+                merchantsToCheck.add(sheriffIndex - 1);
+                merchantsToCheck.add(sheriffIndex + 1);
+            }
+        } else {
+            if (sheriffIndex == 1) {
+                merchantsToCheck.add(0);
+            } else {
+                merchantsToCheck.add(1);
+            }
+        }
+    }
 }
