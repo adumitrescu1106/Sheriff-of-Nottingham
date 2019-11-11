@@ -67,12 +67,12 @@ public final class Main {
     }
 
     public static void main(final String[] args) {
-//        String input = "/home/andrei/Desktop/TemePOO/src/checker/tests/in/2round3players-mixed-test7.in";
-//        String output = "/home/andrei/Desktop/TemePOO/src/checker/tests/out/2round3players-mixed-test7.out";
-//        String input = "/home/andrei/Desktop/TemePOO/src/checker/tests/in/2round2players-legal-only-test9.in";
-//        String output = "/home/andrei/Desktop/TemePOO/src/checker/tests/out/2round2players-legal-only-test9.out";
-//        String input = "/home/andrei/Desktop/TemePOO/src/checker/tests/in/1round3players-mixed-test1.in";
-//        String output = "/home/andrei/Desktop/TemePOO/src/checker/tests/out/1round3players-mixed-test1.out";
+//        String input = "/home/andrei/Desktop/TemePOO/src/checker/tests/in/1round2players-mixed-test7.in";
+//        String output = "/home/andrei/Desktop/TemePOO/src/checker/tests/out/1round2players-mixed-test7.out";
+//        String input = "/home/andrei/Desktop/TemePOO/src/checker/tests/in/2round2players-mixed-test1.in";
+//        String output = "/home/andrei/Desktop/TemePOO/src/checker/tests/out/2round2players-mixed-test1.out";
+//        String input = "/home/andrei/Desktop/TemePOO/src/checker/tests/in/1round2players-illegal-only-test3.in";
+//        String output = "/home/andrei/Desktop/TemePOO/src/checker/tests/out/1round2players-illegal-only-test3.out";
 
 ////
 //        GameInputLoader gameInputLoader = new GameInputLoader(input, output);
@@ -94,6 +94,40 @@ public final class Main {
 
         GoodsFactory obiecte = GoodsFactory.getInstance();
 
+        for (int i = 0; i < noPlayers; ++i) {
+            for (int j = 0; j < jucatori.get(i).getBooth().size(); j++) {
+                if (obiecte.getGoodsById(jucatori.get(i).getBooth().get(j)).getType()
+                        == GoodsType.Illegal) {
+                    if (jucatori.get(i).getBooth().get(j) == 24) {
+                        for (int k = 0; k < 2; k++) {
+                            jucatori.get(i).getBooth().add(4);
+                            jucatori.get(i).getBooth().add(6);
+                        }
+                        jucatori.get(i).getBooth().add(6);
+                        jucatori.get(i).getBooth().add(3);
+                        //System.out.println("24");
+                    } else if (jucatori.get(i).getBooth().get(j) == 23) {
+                        for (int k = 0; k < 4; k++) {
+                            jucatori.get(i).getBooth().add(7);
+                        }
+                        //System.out.println("23");
+                    } else if (jucatori.get(i).getBooth().get(j) == 22) {
+                        jucatori.get(i).getBooth().add(2);
+                        jucatori.get(i).getBooth().add(2);
+                        //System.out.println("22");
+                    } else if (jucatori.get(i).getBooth().get(j) == 21) {
+                        jucatori.get(i).getBooth().add(3);
+                        jucatori.get(i).getBooth().add(3);
+                        //System.out.println("21");
+                    } else if (jucatori.get(i).getBooth().get(j) == 20) {
+                        jucatori.get(i).getBooth().add(1);
+                        jucatori.get(i).getBooth().add(1);
+                        jucatori.get(i).getBooth().add(1);
+                        //System.out.println("20");
+                    }
+                }
+            }
+        }
         for (int i = 0; i < noPlayers; ++i) {
             for (int k = 0; k < jucatori.get(i).getBooth().size(); k++) {
                 jucatori.get(i).addCoins(obiecte.getGoodsById(jucatori.get(i).getBooth().get(k)).getProfit());
@@ -155,7 +189,6 @@ public final class Main {
        // printeaza jucatorii
 //        for (int i = noPlayers - 1; 0 <= i; i--) {
 //            System.out.println(jucatori.get(i));
-//
 //        }
 //        int k = 0;
 //        for (int i = noPlayers - 1; 0 <= i; i--) {

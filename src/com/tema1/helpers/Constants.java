@@ -7,4 +7,8 @@ public final class Constants {
     public static final int LEGAL_BOUND = 9;
     public static final int SARACIE = 16;
     public static final int MIN_BRIBE = 5;
+    public static final int MAX_BRIBE = 10;
+    public static final int ILLEGAL_PENALTY = 4;
+    public static final int LEGAL_PENALTY = 2;
+    public static final int BAG_SIZE = 8;
 }
