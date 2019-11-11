@@ -37,10 +37,10 @@ public class Basic extends Player {
 
     public final void playBasic(ArrayList<Player> jucatori, Player player, List<Integer> cards, int round) {
         frequency.clear();
+        usedCards.clear();
         for (int j = 0; j < constants.CARDS_PICK; ++j) {
             usedCards.add(0);
         }
-        //player.getBag().clear();
         if (player.getTactic().equals("basic") || player.getTactic().equals("bribed")) {
             if (player.getJob().equals("merchant")) {
                 basicMerchant(player);
@@ -84,18 +84,13 @@ public class Basic extends Player {
                    for (int j = 0; j < jucatori.get(i).getBag().size(); j++) {
                        // daca sunt carti ilegale in posesia jucatorilor , seriful le confisca si aplica pedeapsa
                        if (products.getGoodsById(jucatori.get(i).getBag().get(j)).getType().equals(GoodsType.Illegal)) {
-//                           jucatori.get(i).subCoins(products.getGoodsById(jucatori.get(i).getBag().get(j)).getPenalty());
-//                           sheriff.addCoins(products.getGoodsById(jucatori.get(i).getBag().get(j)).getPenalty());
-//                           confiscate(jucatori.get(i).getBag(), cards, j);
                            inRegula = false;
                        } else if (jucatori.get(i).getBag().get(j) != jucatori.get(i).getDeclaration()) {
                            inRegula = false;
                            //sherifful castiga banii pt ca a prins obiecte nedeclarate, iar pietarul pierde banii
-//                           jucatori.get(i).subCoins(products.getGoodsById(jucatori.get(i).getBag().get(j)).getPenalty());
-//                           sheriff.addCoins(products.getGoodsById(jucatori.get(i).getBag().get(j)).getPenalty());
                        }
                    }
-                   // daca comerciantul este in refula , atunci sherifful pierde banii
+                   // daca comerciantul este in regula , atunci sherifful pierde banii
                    if (inRegula) {
                         sheriff.subCoins(products.getGoodsById(jucatori.get(i).getDeclaration()).getPenalty() * jucatori.get(i).getBag().size());
                         jucatori.get(i).addCoins(products.getGoodsById(jucatori.get(i).getDeclaration()).getPenalty() * jucatori.get(i).getBag().size());
@@ -103,17 +98,16 @@ public class Basic extends Player {
 //                        System.out.println("sheriff " + sheriff.getCoins());
                         for (int k = 0; k < jucatori.get(i).getBag().size(); k++) {
                             jucatori.get(i).getBooth().add(jucatori.get(i).getBag().get(k));
-                            jucatori.get(i).addCoins(products.getGoodsById(jucatori.get(i).getBag().get(k)).getProfit());
                         }
                    } else {
                        for (int k = 0; k < jucatori.get(i).getBag().size(); k++) {
                            if (jucatori.get(i).getBag().get(k) == jucatori.get(i).getDeclaration()) {
                                jucatori.get(i).getBooth().add(jucatori.get(i).getBag().get(k));
                                //jucatori.get(i).addCoins(products.getGoodsById(jucatori.get(i).getBag().get(k)).getProfit());
-                           }
-                           else {
+                           } else {
                                jucatori.get(i).subCoins(products.getGoodsById(jucatori.get(i).getBag().get(k)).getPenalty());
                                sheriff.addCoins(products.getGoodsById(jucatori.get(i).getBag().get(k)).getPenalty());
+                               //confiscare
                            }
                        }
                    }
@@ -216,7 +210,7 @@ public class Basic extends Player {
 
     // adauga cartea ilegala cu profitul cel mai mare in sac
     public final void getCardMaxProfit(Player player, List<Integer> cardsInHand) {
-        int max = cardsInHand.get(0);
+        int max = 0;
         int index = 0;
         for (int i = 1; i < cardsInHand.size(); ++i) {
             if (products.getGoodsById(cardsInHand.get(i)).getProfit() > products.getGoodsById(max).getProfit()

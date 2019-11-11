@@ -1,5 +1,6 @@
 package com.tema1.main;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -48,6 +49,9 @@ public final class Main {
                 // politistul subrundei isi face verificarea
                 jucatori.get(sheriffIndex).playBasic(jucatori, jucatori.get(sheriffIndex), cards, i);
                 //System.out.println(jucatori.get(k));
+//                for (int r = 0; r < playerNumber; r++) {
+//                    System.out.println(jucatori.get(r));
+//                }
                 jucatori.get(sheriffIndex).setJob("merchant");
                 sheriffIndex++;
                 clearBags(jucatori);
@@ -63,12 +67,12 @@ public final class Main {
     }
 
     public static void main(final String[] args) {
-//        String input = "/home/andrei/Desktop/TemePOO/src/checker/tests/in/2round2players-mixed-test2.in";
-//        String output = "/home/andrei/Desktop/TemePOO/src/checker/tests/out/2round2players-mixed-test2.out";
+//        String input = "/home/andrei/Desktop/TemePOO/src/checker/tests/in/2round3players-mixed-test7.in";
+//        String output = "/home/andrei/Desktop/TemePOO/src/checker/tests/out/2round3players-mixed-test7.out";
 //        String input = "/home/andrei/Desktop/TemePOO/src/checker/tests/in/2round2players-legal-only-test9.in";
 //        String output = "/home/andrei/Desktop/TemePOO/src/checker/tests/out/2round2players-legal-only-test9.out";
-//        String input = "/home/andrei/Desktop/TemePOO/src/checker/tests/in/1round2players-legal-only-test2.in";
-//        String output = "/home/andrei/Desktop/TemePOO/src/checker/tests/out/1round2players-legal-only-test2.out";
+//        String input = "/home/andrei/Desktop/TemePOO/src/checker/tests/in/1round3players-legal-only-test7.in";
+//        String output = "/home/andrei/Desktop/TemePOO/src/checker/tests/out/1round3players-legal-only-test7.out";
 
 ////
 //        GameInputLoader gameInputLoader = new GameInputLoader(input, output);
@@ -90,113 +94,63 @@ public final class Main {
 
         GoodsFactory obiecte = GoodsFactory.getInstance();
 
-//        for (int i = 0; i < noPlayers; ++i) {
-//            for (int k = 0; k < jucatori.get(i).getBooth().size(); k++) {
-//                jucatori.get(i).addCoins(obiecte.getGoodsById(jucatori.get(i).getBooth().get(k)).getProfit());
-//            }
-//        }
-        // KING BONUS ASSIGN
-        LegalGoods legalGoods;
-        int maxim = 1;
-        Map<Integer, ArrayList<Integer>> king = new HashMap<Integer, ArrayList<Integer>>();
-        for (int i = 0; i < jucatori.size(); ++i) {
-            //sortez tarabele
-            maxim = 0;
-            Collections.sort(jucatori.get(i).getBooth());
-            for (int j = 0; j <= jucatori.get(i).getBooth().size() - 1; j++) {
-                // daca nu exista itemul in map, il creeaza, altfel creste
-                if (king.get(jucatori.get(i).getBooth().get(j)) == null) {
-                    king.put(jucatori.get(i).getBooth().get(j), new ArrayList<Integer>());
-                    king.get(jucatori.get(i).getBooth().get(j)).add(jucatori.get(i).getPlayerindex());
-                    //System.out.println("max " + maxim);
-                    king.get(jucatori.get(i).getBooth().get(j)).add(1);
-                    maxim++;
-                } else {
-                    maxim++;
-                }
-                if (j != jucatori.get(i).getBooth().size() - 1) {
-                    if (!(jucatori.get(i).getBooth().get(j).equals(jucatori.get(i).getBooth().get(j + 1))) ) {
-                        if (king.get(jucatori.get(i).getBooth().get(j)).get(1) < maxim) {
-                            king.get(jucatori.get(i).getBooth().get(j)).set(1, maxim);
-                            king.get(jucatori.get(i).getBooth().get(j)).set(0, jucatori.get(i).getPlayerindex());
-                           // System.out.println("max1 " + maxim);
-                            maxim = 1;
-                        } else if (king.get(jucatori.get(i).getBooth().get(j)).get(1) == maxim &&
-                                jucatori.get(i).getPlayerindex() < king.get(jucatori.get(i).getBooth().get(j)).get(0)) {
-                            king.get(jucatori.get(i).getBooth().get(j)).set(0, jucatori.get(i).getPlayerindex());
-                            //System.out.println("primul if");
-                        }
-                    }
-                } else {
-                    if (jucatori.get(i).getBooth().size() == 1) {
-                        maxim = 1;
-                        king.get(jucatori.get(i).getBooth().get(j)).set(1, maxim);
-                        king.get(jucatori.get(i).getBooth().get(j)).set(0, jucatori.get(i).getPlayerindex());
-                       // System.out.println("max2 " + maxim);
-                    } else if (jucatori.get(i).getPlayerindex() < king.get(jucatori.get(i).getBooth().get(j)).get(0)
-                    && king.get(jucatori.get(i).getBooth().get(j)).get(1) == maxim) {
-                        king.get(jucatori.get(i).getBooth().get(j)).set(0, jucatori.get(i).getPlayerindex());
-                       // System.out.println("al doilea if");
-                    } else {
-                        //maxim++;
-                        king.get(jucatori.get(i).getBooth().get(j)).set(1, maxim);
-                        //king.get(jucatori.get(i).getBooth().get(j)).set(0, jucatori.get(i).getPlayerindex());
-                       // System.out.println("max3 " + maxim);
-                    }
-                }
+        for (int i = 0; i < noPlayers; ++i) {
+            for (int k = 0; k < jucatori.get(i).getBooth().size(); k++) {
+                jucatori.get(i).addCoins(obiecte.getGoodsById(jucatori.get(i).getBooth().get(k)).getProfit());
             }
-        }
-        for (Map.Entry<Integer, ArrayList<Integer>> entry : king.entrySet()) {
-            legalGoods = (LegalGoods) obiecte.getGoodsById(entry.getKey());
-            //System.out.println("king__key:" + entry.getKey() + " value:" + entry.getValue());
-            jucatori.get(entry.getValue().get(0)).addCoins(legalGoods.getKingBonus());
         }
 
-       // QUEEN BONUS ASSIGN
-        Map<Integer, ArrayList<Integer>> queen = new HashMap<Integer, ArrayList<Integer>>();
-        for (int i = 0; i < jucatori.size(); ++i) {
-            maxim = 0;
-            for (int j = 0; j <= jucatori.get(i).getBooth().size() - 1; j++) {
-                // daca nu exista itemul in map, il creeaza, altfel creste
-                if (jucatori.get(i).getPlayerindex() != king.get(jucatori.get(i).getBooth().get(j)).get(0)) {
-                    if (queen.get(jucatori.get(i).getBooth().get(j)) == null
-                            ) {
-                        queen.put(jucatori.get(i).getBooth().get(j), new ArrayList<Integer>());
-                        queen.get(jucatori.get(i).getBooth().get(j)).add(jucatori.get(i).getPlayerindex());
-                        queen.get(jucatori.get(i).getBooth().get(j)).add(1);
-                       // maxim = 1;
-                    } else {
+        // KING BONUS ASSIGN
+        LegalGoods legalGoods;
+        int maxKing = 0;
+        int indexMaxKing = 0;
+        int maxQueen = 0;
+        int indexMaxQueen = 0;
+        int maxim = 0;
+        for (int k = 0; k <= 9; k++) {
+            //iterez prin playeri
+            maxKing = 0;
+            indexMaxKing = 0;
+            maxQueen = 0;
+            indexMaxQueen = 0;
+            for (int i = 0; i < jucatori.size(); ++i) {
+                //iterez prin tarabele lor
+                maxim = 0;
+                for (int j = 0; j <= jucatori.get(i).getBooth().size() - 1; j++) {
+                    if (k == jucatori.get(i).getBooth().get(j)) {
                         maxim++;
                     }
-                    if (j != jucatori.get(i).getBooth().size() - 1) {
-                        if (!(jucatori.get(i).getBooth().get(j).equals(jucatori.get(i).getBooth().get(j + 1)))) {
-                            if (queen.get(jucatori.get(i).getBooth().get(j)).get(1) < maxim && king.get(jucatori.get(i).getBooth().get(j)).get(1) > maxim
-                            && jucatori.get(i).getPlayerindex() < queen.get(jucatori.get(i).getBooth().get(j)).get(0)) {
-                                queen.get(jucatori.get(i).getBooth().get(j)).set(1, maxim);
-                                queen.get(jucatori.get(i).getBooth().get(j)).set(0, jucatori.get(i).getPlayerindex());
-                            }
-                        }
-                    } else {
-                        if (jucatori.get(i).getBooth().size() == 1 ) {
-                            maxim = 1;
-                            queen.get(jucatori.get(i).getBooth().get(j)).set(1, maxim);
-                            queen.get(jucatori.get(i).getBooth().get(j)).set(0, jucatori.get(i).getPlayerindex());
-                        } else {
-                            if (king.get(jucatori.get(i).getBooth().get(j)).get(1) > maxim &&
-                                    jucatori.get(i).getPlayerindex() < queen.get(jucatori.get(i).getBooth().get(j)).get(0)) {
-                                queen.get(jucatori.get(i).getBooth().get(j)).set(1, maxim);
-                                queen.get(jucatori.get(i).getBooth().get(j)).set(0, jucatori.get(i).getPlayerindex());
-                            }
-                        }
+                }
+                if (maxim > maxKing) {
+                    maxKing = maxim;
+                    indexMaxKing = i;
+                }
+//             maxim = 0;
+
+            }
+            for (int i = 0; i < jucatori.size(); ++i) {
+                maxim = 0;
+                for (int r = 0; r <= jucatori.get(i).getBooth().size() - 1; r++) {
+                    if (i != indexMaxKing && k == jucatori.get(i).getBooth().get(r)) {
+                        maxim++;
                     }
                 }
+                if (maxim > maxQueen) {
+                    maxQueen = maxim;
+                    indexMaxQueen = i;
+                }
             }
+            if (maxKing != 0) {
+                legalGoods = (LegalGoods) obiecte.getGoodsById(k);
+                jucatori.get(indexMaxKing).addCoins(legalGoods.getKingBonus());
+            }
+            if (maxQueen != 0) {
+                legalGoods = (LegalGoods) obiecte.getGoodsById(k);
+                jucatori.get(indexMaxQueen).addCoins(legalGoods.getQueenBonus());
+            }
+            //System.out.println(maxQueen + " "+ indexMaxQueen);
         }
-        for (Map.Entry<Integer, ArrayList<Integer>> entry : queen.entrySet()) {
-            legalGoods = (LegalGoods) obiecte.getGoodsById(entry.getKey());
-            jucatori.get(entry.getValue().get(0)).addCoins(legalGoods.getQueenBonus());
-            //System.out.println("queen_key:" + entry.getKey() + " value:" + entry.getValue());
-        }
+
 
        // printeaza jucatorii
 //        for (int i = noPlayers - 1; 0 <= i; i--) {
