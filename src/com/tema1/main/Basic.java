@@ -98,6 +98,7 @@ public class Basic extends Player {
                                    Player sheriff, List<Integer> cards) {
         boolean inRegula;
         if (sheriff.getCoins() >= constants.SARACIE) {
+            //System.out.println(sheriff.getCoins());
             if (sheriff.getTactic().equals("greedy")) {
                 for (int i = 0; i < jucatori.size(); ++i) {
                     inRegula = true;
@@ -194,6 +195,14 @@ public class Basic extends Player {
                                 }
                             }
                         }
+                    }
+                }
+            }
+        } else {
+            for (int i = 0; i < jucatori.size(); ++i) {
+                if (i != sheriff.getPlayerindex()) {
+                    for (int j = 0; j < jucatori.get(i).getBag().size(); j++) {
+                        jucatori.get(i).getBooth().add(jucatori.get(i).getBag().get(j));
                     }
                 }
             }
@@ -310,7 +319,7 @@ public class Basic extends Player {
     public final void getCardMaxProfit(Player player, List<Integer> cardsInHand) {
         int max = 0;
         int index = 0;
-        for (int i = 1; i < cardsInHand.size(); ++i) {
+        for (int i = 0; i < cardsInHand.size(); ++i) {
             if (products.getGoodsById(cardsInHand.get(i)).getProfit()
                     > products.getGoodsById(max).getProfit()
             && usedCards.get(i) == 0) {
