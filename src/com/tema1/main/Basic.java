@@ -80,6 +80,7 @@ public class Basic extends Player {
                 basicSheriff(jucatori, player, cards);
             }
         }
+       // System.out.println(usedCards);
     }
 
     //metoda pentru merchant ul cu stilul de joc basic
@@ -324,7 +325,7 @@ public class Basic extends Player {
                     > products.getGoodsById(max).getProfit()
             && usedCards.get(i) == 0) {
                 max = cardsInHand.get(i);
-                index = 1;
+                index = i;
             }
         }
         //pun cartea in sac si ii setez indexul pt ca a fost folosita

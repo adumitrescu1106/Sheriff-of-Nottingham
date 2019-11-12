@@ -49,9 +49,9 @@ public final class Main {
                 // politistul subrundei isi face verificarea
                 jucatori.get(sheriffIndex).playBasic(jucatori, jucatori.get(sheriffIndex), cards, i);
                 //System.out.println(jucatori.get(k));
-//                for (int r = 0; r < playerNumber; r++) {
-//                    System.out.println(jucatori.get(r));
-//                }
+                for (int r = 0; r < playerNumber; r++) {
+                    System.out.println(jucatori.get(r));
+                }
                 jucatori.get(sheriffIndex).setJob("merchant");
                 sheriffIndex++;
                 clearBags(jucatori);
@@ -69,17 +69,17 @@ public final class Main {
     public static void main(final String[] args) {
 //        String input = "/home/andrei/Desktop/TemePOO/src/checker/tests/in/1round2players-mixed-test7.in";
 //        String output = "/home/andrei/Desktop/TemePOO/src/checker/tests/out/1round2players-mixed-test7.out";
-//        String input = "/home/andrei/Desktop/TemePOO/src/checker/tests/in/2round2players-mixed-test1.in";
-//        String output = "/home/andrei/Desktop/TemePOO/src/checker/tests/out/2round2players-mixed-test1.out";
-//        String input = "/home/andrei/Desktop/TemePOO/src/checker/tests/in/2round3players-illegal-only-test2.in";
-//        String output = "/home/andrei/Desktop/TemePOO/src/checker/tests/out/2round3players-illegal-only-test2.out";
+        String input = "/home/andrei/Desktop/TemePOO/src/checker/tests/in/2round3players-mixed-test26.in";
+        String output = "/home/andrei/Desktop/TemePOO/src/checker/tests/out/2round3players-mixed-test26.out";
+//        String input = "/home/andrei/Desktop/TemePOO/src/checker/tests/in/2round3players-illegal-only-test16.in";
+//        String output = "/home/andrei/Desktop/TemePOO/src/checker/tests/out/2round3players-illegal-only-test16.out";
 
 ////
-//        GameInputLoader gameInputLoader = new GameInputLoader(input, output);
-//        GameInput gameInput = gameInputLoader.load();
-
-        GameInputLoader gameInputLoader = new GameInputLoader(args[0], args[1]);
+        GameInputLoader gameInputLoader = new GameInputLoader(input, output);
         GameInput gameInput = gameInputLoader.load();
+
+//        GameInputLoader gameInputLoader = new GameInputLoader(args[0], args[1]);
+//        GameInput gameInput = gameInputLoader.load();
 
 
         //TODO implement homework logic
